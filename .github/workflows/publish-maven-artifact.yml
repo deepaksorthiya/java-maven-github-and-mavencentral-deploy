@@ -1,0 +1,49 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Maven Artifact Publish To Github And Apache Maven Central
+
+on:
+  release:
+    types: [ created ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17 for Apache Maven Central
+        uses: actions/setup-java@v4
+        with: # running setup-java again overwrites the settings.xml
+          distribution: 'temurin'
+          java-version: '17'
+          server-id: central # Value of the distributionManagement/repository/id field of the pom.xml
+          server-username: MAVEN_USERNAME # env variable for username
+          server-password: MAVEN_CENTRAL_TOKEN # env variable for token
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Secret Value of the GPG private key
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
+
+      - name: Publish to Apache Maven Central
+        run: mvn -Pcentral clean deploy --file pom.xml
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+
+      - name: Set up JDK 17 for Github
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+      - name: Publish to GitHub Packages
+        run: mvn -Pgithub clean deploy -s $GITHUB_WORKSPACE/settings.xml --file pom.xml
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
