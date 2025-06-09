@@ -44,7 +44,7 @@
         <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
-        <junit-bom.version>5.13.0</junit-bom.version>
+        <junit-bom.version>5.13.1</junit-bom.version>
         <lombok.version>1.18.38</lombok.version>
         <logback.version>1.5.18</logback.version>
     </properties>
