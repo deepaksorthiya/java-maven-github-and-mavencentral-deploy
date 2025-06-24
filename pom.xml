@@ -4,7 +4,7 @@
 
     <groupId>io.github.deepaksorthiya</groupId>
     <artifactId>java-maven-github-and-mavencentral-deploy</artifactId>
-    <version>1.1.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>java-maven-github-and-mavencentral-deploy</name>
