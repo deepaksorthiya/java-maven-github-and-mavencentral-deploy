@@ -43,7 +43,7 @@
         <maven-central-publish-plugin.version>0.9.0</maven-central-publish-plugin.version>
         <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
         <junit-bom.version>6.0.1</junit-bom.version>
         <lombok.version>1.18.42</lombok.version>
         <logback.version>1.5.21</logback.version>
